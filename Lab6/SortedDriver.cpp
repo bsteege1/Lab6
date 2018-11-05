@@ -1,3 +1,4 @@
+
 // SortedDriver.cpp
 
 // tom bailey   1445  25 mar 2014
@@ -61,34 +62,34 @@ getWords(size_t numWords, size_t wordLength, string alphabet)
 double
 mostIsolated(vector<double> & number)
 {
+	int count(0);
 	double iso;
 	double minimum;
-	int count(1);
 	vector<double> isolated;
 	while (count < number.size())
 	{
-		if (count == 1)
+		if (count == 0)
 		{
-			iso = abs(number[count - 1] - number[count]);
+			iso = abs(number.at(count) - number.at(count + 1));
 			isolated.push_back(iso);
+			//count++;
 		}
-		else
+		else if(count >= 2 && count < number.size() - 1)
 		{
-			if(count < (number.size()- 1))
+			minimum = abs(number.at(count) - number.at(count - 1));
+			iso = abs(number.at(count) - number.at(count + 1));
+			if (minimum < iso)
 			{
-				iso = abs(number[count - 1] - number[count]);
-				minimum = abs(number[count] - number[count + 1]);
-				if (iso <= minimum)
-				{
-					isolated.push_back(iso);
-				}
-				else
-				{
-					isolated.push_back(minimum);
-				}
-
+				isolated.push_back(minimum);
 			}
-				
+			else
+			{
+				isolated.push_back(iso);
+			}
+		}
+		else if(count != 1)
+		{
+			isolated.push_back((abs(number.at(count)- number.at(count - 1))));
 		}
 		count++;
 	}
@@ -96,21 +97,18 @@ mostIsolated(vector<double> & number)
 	//isolated.push_back(abs(number.at(number.size() - 1) - (number.at(number.size() - 2))));
 	//not adding last value I believe. 
 
-	double tempMax(isolated.at(0));
-	iso = number.at(0);
+	double tempMax;
+	//iso = number.at(0);
 
-	for (int i = 0; i < number.size(); i++)
-	{
-		cout << isolated.at(i) << endl;
-	}
+	
 
 	for (int i(0); i < (isolated.size() - 1); i++)
 	{
-		//tempMax=isolated.at(i);
+		tempMax=isolated.at(i);
 		if (tempMax < isolated.at(i + 1))
 		{
 			tempMax = isolated.at(1 + i);
-			iso = number.at(i + 1);
+			iso = number.at(i);
 		}
 		else
 		{
@@ -118,7 +116,7 @@ mostIsolated(vector<double> & number)
 			iso = number.at(i);
 		}
 	}
-	
+
 	return iso;
 }
 

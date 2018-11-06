@@ -72,9 +72,8 @@ mostIsolated(vector<double> & number)
 		{
 			iso = abs(number.at(count) - number.at(count + 1));
 			isolated.push_back(iso);
-			//count++;
 		}
-		else if(count >= 2 && count < number.size() - 1)
+		else if(count < (number.size() - 1))
 		{
 			minimum = abs(number.at(count) - number.at(count - 1));
 			iso = abs(number.at(count) - number.at(count + 1));
@@ -87,37 +86,26 @@ mostIsolated(vector<double> & number)
 				isolated.push_back(iso);
 			}
 		}
-		else if(count != 1)
+		else
 		{
 			isolated.push_back((abs(number.at(count)- number.at(count - 1))));
 		}
 		count++;
 	}
 
-	//isolated.push_back(abs(number.at(number.size() - 1) - (number.at(number.size() - 2))));
-	//not adding last value I believe. 
+	double tempMax(0);
+	double location;
 
-	double tempMax;
-	//iso = number.at(0);
-
-	
-
-	for (int i(0); i < (isolated.size() - 1); i++)
+	for (int i(1); i < (isolated.size()); i++)
 	{
-		tempMax=isolated.at(i);
-		if (tempMax < isolated.at(i + 1))
-		{
-			tempMax = isolated.at(1 + i);
-			iso = number.at(i);
-		}
-		else
+		if (isolated.at(i) > tempMax)
 		{
 			tempMax = isolated.at(i);
-			iso = number.at(i);
+			location = number.at(i);
 		}
 	}
 
-	return iso;
+	return location;
 }
 
 
@@ -127,8 +115,24 @@ mostIsolated(vector<double> & number)
 int
 unmatched(list<string> & A, list<string> & B)
 {
-	// STUB  STUB  STUB
-	return -1;
+	int count(0);
+	for (list<string>::iterator itA = A.begin(), itB = B.begin(); itA != A.end() && itB != B.end();)
+	{
+		if (*itA < *itB)
+		{
+			itA++;
+		}
+		else if (*itA > *itB)
+		{
+			itB++;
+		}
+		else
+		{
+			itA++;
+			count++;
+		}
+	}
+	return (A.size() - count);
 }
 
 int

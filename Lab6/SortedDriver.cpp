@@ -1,5 +1,8 @@
 
 // SortedDriver.cpp
+// Brandon Steege
+//Lab6
+
 
 // tom bailey   1445  25 mar 2014
 // Construct sorted sequences and call functions that
@@ -62,41 +65,41 @@ getWords(size_t numWords, size_t wordLength, string alphabet)
 double
 mostIsolated(vector<double> & number)
 {
-	int count(0);
-	double iso;
-	double minimum;
+	int count(0); //count used to compare to size of vector
+	double iso; // variable used to hold delta
+	double minimum; // variable that holds minimum delta
 	vector<double> isolated;
 	while (count < number.size())
 	{
-		if (count == 0)
+		if (count == 0) //used for initial value in vector
 		{
-			iso = abs(number.at(count) - number.at(count + 1));
-			isolated.push_back(iso);
+			iso = abs(number.at(count) - number.at(count + 1));//initializes iso to be the delta value
+			isolated.push_back(iso); //adds iso to new vector
 		}
-		else if(count < (number.size() - 1))
+		else if(count < (number.size() - 1)) //used rest of values excluding last value in vector
 		{
-			minimum = abs(number.at(count) - number.at(count - 1));
-			iso = abs(number.at(count) - number.at(count + 1));
+			minimum = abs(number.at(count) - number.at(count - 1)); //minimum initialized to be prev delta
+			iso = abs(number.at(count) - number.at(count + 1)); //iso initialized to be next delta
 			if (minimum < iso)
 			{
-				isolated.push_back(minimum);
+				isolated.push_back(minimum);//pushes back smaller value
 			}
 			else
 			{
-				isolated.push_back(iso);
+				isolated.push_back(iso);//pushes back smaller value
 			}
 		}
 		else
 		{
-			isolated.push_back((abs(number.at(count)- number.at(count - 1))));
+			isolated.push_back((abs(number.at(count)- number.at(count - 1))));//pushes back last value's delta
 		}
-		count++;
+		count++; //increments count
 	}
+	
+	double tempMax(0); //used for comparing
+	double location; //used to store the location of the greatest delta
 
-	double tempMax(0);
-	double location;
-
-	for (int i(1); i < (isolated.size()); i++)
+	for (int i(1); i < (isolated.size()); i++) //this loop compares current value with tempmax to determine the greates delta
 	{
 		if (isolated.at(i) > tempMax)
 		{
@@ -115,24 +118,24 @@ mostIsolated(vector<double> & number)
 int
 unmatched(list<string> & A, list<string> & B)
 {
-	int count(0);
+	int count(0);//value used to caount number of times two of the same values exist
 	for (list<string>::iterator itA = A.begin(), itB = B.begin(); itA != A.end() && itB != B.end();)
 	{
-		if (*itA < *itB)
+		if (*itA < *itB)//compares both pointers
 		{
-			itA++;
+			itA++; //iterates to next location in a 
 		}
-		else if (*itA > *itB)
+		else if (*itA > *itB)//compares both pointers
 		{
-			itB++;
+			itB++; //iterates to next location in b
 		}
 		else
 		{
-			itA++;
-			count++;
+			itA++; //iterates to next location in a 
+			count++; //increments count
 		}
 	}
-	return (A.size() - count);
+	return (A.size() - count);//returens number of different values in two lists
 }
 
 int
